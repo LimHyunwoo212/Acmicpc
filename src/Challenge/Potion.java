@@ -67,7 +67,8 @@ public class Potion {
             Tuple2<String, Integer>[] tmpTuple = new Tuple2[tmpStrArr.length];
             int tupleIdx = 0;
             for(String idx : tmpStrArr) {
-                tmpTuple[tupleIdx++] = Tuple2.create(idx.substring(1),(int)idx.charAt(0)-48);
+                String tmp = idx;
+                tmpTuple[tupleIdx++] = Tuple2.create(tmp.replaceAll("[^A-Z]", ""),Integer.parseInt(idx.replaceAll("[^0-9]","")));
             }
             formula.add(tmpTuple);
         }
@@ -80,7 +81,6 @@ public class Potion {
         long answer = 0;
         for(int i = 0; i < potions[0].length; i ++) {
             if(potionName.equals(potions[0][i])){
-
                 for(Tuple2 t : formula.get(i)){
                     if(market.containsKey(t._1)) {
                         answer += (market.get(t._1) * (int)t._2);
